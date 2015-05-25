@@ -1,4 +1,10 @@
-<IMG SRC="architecture.png" width=100%>
+<BODY>
+  <P>
+    <IMG SRC="architecture.png" width=100%>
+</P>
+<HR>
 {% for repository in site.github.public_repositories %}
   * [{{ repository.name }}]({{ repository.html_url }})
 {% endfor %}
+
+</BODY>
