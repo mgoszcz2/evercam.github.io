@@ -25,11 +25,13 @@ title: Introduction Page
 <a id="welcome-to-github-pages" class="anchor" href="#welcome-to-github-pages" aria-hidden="true"><span class="octicon octicon-link"></span></a>Evercam Architecture Diagram - Logo Driven Development ;).</h3>
 
 <IMG SRC="architecture.png" width=100%>
- 
+ <UL>
  {% for repository in site.github.public_repositories %}
+ <LI>
   * [{{ repository.name }}]({{ repository.html_url }})
+  </LI>
 {% endfor %}
- 
+ </UL>
 
       <footer class="site-footer">
 
