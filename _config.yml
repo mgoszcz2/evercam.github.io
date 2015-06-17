@@ -1,0 +1,2 @@
+repository: evercam/evercam.github.io
+gems: ['jekyll-github-metadata']
