@@ -1,5 +1,4 @@
-var app = angular.module("evercamApp", [])
-
+// Config
 var noCatgeory = "Misc"
 var spec = [
     {name: "API Wrappers", repos: ["evercam-node", "evercam-ruby", "evercam.js", "evercam-objc", "evercam-elixir", "evercam.net", "evercam.java", "evercam.py"]},
@@ -10,6 +9,65 @@ var spec = [
     {name: "Dashboard", repos: ["evercam-dashboard", "evercam-public-site"]}
 ]
 
+// Horrible race conditions hack
+var global = null
+var scope = null
+
+// Angular set-up
+var app = angular.module("evercamApp", [])
+app.controller("repoCtrl", function($scope) {
+    scope = $scope
+    attemptUpdate(false)
+})
+
+// JSONP callback from S3
+function readData(data) {
+    var obj = {}
+    obj.categories = handleRepositories(data.repositories)
+    obj.contributors = data.contributors
+    obj.issues = data.issues
+    global = obj
+    attemptUpdate(true)
+}
+
+// Called at end of angular scope setup and JSONP load
+// Only triggers if both have been loaded
+function attemptUpdate(outsideDigest) {
+    console.log(outsideDigest, scope, global)
+    if (scope && global) {
+        for (var key in global) {
+            scope[key] = global[key]
+        }
+        if (outsideDigest) {
+            scope.$digest()
+        }
+        if (outsideDigest) {
+            scope.$digest()
+        }
+        console.log("Sucessful scope update")
+    }
+}
+
+// Organise repositories by category
+function handleRepositories(repos) {
+    var categories = {} // spec with category as key
+    var processed = {} // Result
+
+    for (var i = 0; i < spec.length; i++) {
+        processed[spec[i].name] = {}
+        categories[spec[i].name] = spec[i].repos
+    }
+    processed[noCatgeory] = {}
+
+    // Sort repos by categories
+    for (var i = 0; i < repos.length; i++) {
+        var name = repos[i].name
+        processed[getCategory(categories, name)][name] = repos[i]
+    }
+
+    return reorderToTop(categories, processed)
+}
+
 function getCategory(categories, repo) {
     for (cat in categories) {
         if (categories[cat].indexOf(repo) > -1) return cat
@@ -17,6 +75,7 @@ function getCategory(categories, repo) {
     return noCatgeory
 }
 
+// Reorder repos to match order in spec
 function reorderToTop(categories, data) {
     var ordered = [], miscrepos = []
 
@@ -37,25 +96,3 @@ function reorderToTop(categories, data) {
     ordered.push({name: noCatgeory, repos: miscrepos})
     return ordered
 }
-
-app.controller("repoCtrl", function($http, $scope) {
-    $http.get("/repositories.json").success(function(repo) {
-        // Given spec prepare obvjrects with categories as keys
-        var data = {}, categories = {}
-        for (var i = 0; i < spec.length; i++) {
-            data[spec[i].name] = {}
-            categories[spec[i].name] = spec[i].repos
-        }
-        data[noCatgeory] = {}
-
-        // Sort data by categories
-        for (var i = 0; i < repo.length; i++) {
-            var name = repo[i].name
-            data[getCategory(categories, name)][name] = repo[i]
-        }
-
-        $scope.categories = reorderToTop(categories, data)
-    }).error(function(data, stat) {
-        alert("Error occured")
-    })
-})
