@@ -2,9 +2,9 @@
 var noCatgeory = "Misc"
 var showMisc = false;
 var spec = [
-    {name: "Wrappers", repos: ["evercam-node", "evercam-ruby", "evercam.js", "evercam-objc", "evercam-elixir", "evercam.net", "evercam.java", "evercam.py"]},
-    {name: "Server", repos: ["evercam-api", "evercam-media", "evercam-gateway", "camera-gateway-api"]},
-    {name: "Clients", repos: ["evercam-dashboard", "evercam-public-site", "evercam-play-ios", "evercam-play-android"]}
+    {name: "Servers", repos: ["evercam-api", "evercam-media", "evercam-gateway", "camera-gateway-api"]},
+    {name: "Clients", repos: ["evercam-dashboard", "evercam-public-site", "evercam-play-ios", "evercam-play-android"]},
+    {name: "Wrappers", repos: ["evercam-node", "evercam-ruby", "evercam.js", "evercam-objc", "evercam-elixir", "evercam.net", "evercam.java", "evercam.py"]}
 ]
 
 // Horrible race conditions hack
@@ -25,7 +25,7 @@ function readData(data) {
     var obj = {}
     obj.categories = handleRepositories(data.repositories)
     obj.contributors = data.contributors
-    obj.issues = data.issues
+    obj.issues = handleIssues(data.issues)
     global = obj
     attemptUpdate(true)
 }
@@ -66,6 +66,23 @@ function handleRepositories(repos) {
     }
 
     return reorderToTop(categories, processed)
+}
+
+function getBlessedRepos() {
+    var blessed = [];
+
+    for (var i = 0; i < spec.length; i++) {
+        blessed = blessed.concat(spec[i].repos)
+    }
+    return blessed;
+}
+
+function handleIssues(issues) {
+    var blessed = getBlessedRepos()
+
+    return issues.filter(function(issue) {
+        return blessed.indexOf(issue.repository) > -1
+    })
 }
 
 function getCategory(categories, repo) {
