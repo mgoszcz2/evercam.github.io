@@ -10,10 +10,12 @@ var spec = [
 // Horrible race conditions hack
 var global = null
 var scope = null
+var timeout = null
 
 // Angular set-up
 var app = angular.module("evercamApp", []);
-app.controller("repoCtrl", function($scope) {
+app.controller("repoCtrl", function($scope, $timeout) {
+    timeout = $timeout
     scope = $scope
     attemptUpdate(false)
 })
@@ -40,6 +42,9 @@ function attemptUpdate(outsideDigest) {
             scope.$digest()
         }
         console.log("Sucessful scope update")
+        timeout(function() {
+            $("#issues").DataTable();
+        })
     }
 }
 
