@@ -1,12 +1,10 @@
 // Config
 var noCatgeory = "Misc"
+var showMisc = false;
 var spec = [
-    {name: "API Wrappers", repos: ["evercam-node", "evercam-ruby", "evercam.js", "evercam-objc", "evercam-elixir", "evercam.net", "evercam.java", "evercam.py"]},
-    {name: "Camera access", repos: ["evercam-media", "evercam-gateway", "camera-gateway-api"]},
-    {name: "Android apps", repos: ["evercam-play-android", "evercam-wear-android", "evercam-capture-android", "evercam-bigredsnapshot-android", "evercam-glass-android", "evercam-discover-android"]},
-    {name: "iOS apps", repos: ["evercam-play-ios"]},
-    {name: "Cambase", repos: ["cambase", "CambaseOLD"]},
-    {name: "Dashboard", repos: ["evercam-dashboard", "evercam-public-site"]}
+    {name: "Wrappers", repos: ["evercam-node", "evercam-ruby", "evercam.js", "evercam-objc", "evercam-elixir", "evercam.net", "evercam.java", "evercam.py"]},
+    {name: "Server", repos: ["evercam-api", "evercam-media", "evercam-gateway", "camera-gateway-api"]},
+    {name: "Clients", repos: ["evercam-dashboard", "evercam-public-site", "evercam-play-ios", "evercam-play-android"]}
 ]
 
 // Horrible race conditions hack
@@ -14,7 +12,7 @@ var global = null
 var scope = null
 
 // Angular set-up
-var app = angular.module("evercamApp", [])
+var app = angular.module("evercamApp", []);
 app.controller("repoCtrl", function($scope) {
     scope = $scope
     attemptUpdate(false)
@@ -33,13 +31,10 @@ function readData(data) {
 // Called at end of angular scope setup and JSONP load
 // Only triggers if both have been loaded
 function attemptUpdate(outsideDigest) {
-    console.log(outsideDigest, scope, global)
+    console.log(outsideDigest, scope, global);
     if (scope && global) {
         for (var key in global) {
             scope[key] = global[key]
-        }
-        if (outsideDigest) {
-            scope.$digest()
         }
         if (outsideDigest) {
             scope.$digest()
@@ -90,9 +85,11 @@ function reorderToTop(categories, data) {
     }
 
     // Eveyrthing goes into misc
-    for (var repo in data[noCatgeory]) {
-        miscrepos.push(data[noCatgeory][repo])
+    if (showMisc) {
+        for (var repo in data[noCatgeory]) {
+            miscrepos.push(data[noCatgeory][repo])
+        }
+        ordered.push({name: noCatgeory, repos: miscrepos})
     }
-    ordered.push({name: noCatgeory, repos: miscrepos})
     return ordered
 }
