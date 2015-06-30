@@ -12,9 +12,12 @@ title: Introduction Page
         <h3 class="col-xs-12 repository-category">{{cat.name}}</h3>
         <ul class="repository-list list-inline">
             <li class="repository col-xs-6" ng-repeat="repo in cat.repos">
-                <a ng-href="{{repo.url}}">{{repo.name}}</a>
-                <p class="repository-description">{{repo.description}}</p>
-                </br>
+                <div>
+                    <a ng-href="{{repo.url}}">{{repo.name}}</a><br/>
+                    {{repo.forks}} <i class="fa fa-code-fork"></i> forks&nbsp;&nbsp;&nbsp;
+                    {{repo.watchers}} <i class="fa fa-eye"></i> watchers
+                    <p class="repository-description">{{repo.description}}</p>
+                </div>
             </li>
         </ul>
     </div>
@@ -25,7 +28,7 @@ title: Introduction Page
             <li class="contributor">
                 <img class="img-circle" ng-src="{{cont.avatar}}">
                 <a ng-href="{{cont.url}}">
-                    <div style="display:table-cell;vertical-align:middle;width:140px;height:140px;">
+                    <div style="display:table-cell;vertical-align:middle;width:80px;height:80px;">
                         <div style="text-align:center;">
                             {{cont.count}}<br/>
                             commits
