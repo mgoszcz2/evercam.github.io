@@ -4,12 +4,19 @@
         <meta charset="UTF-8">
         <title>{{ page.title }}</title>
         <meta name="viewport" content="width=device-width, initial-scale=1">
+
         <link rel="stylesheet" type="text/css" href='https://fonts.googleapis.com/css?family=Open+Sans:400,700'>
         <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/3.0.3/normalize.min.css">
         <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.3.0/css/font-awesome.min.css">
         <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.5/css/bootstrap.min.css">
         <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/datatables/1.10.7/css/jquery.dataTables.min.css">
         <link rel="stylesheet" type="text/css" href="stylesheets/common.css">
+
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.3.16/angular.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/datatables/1.10.7/js/jquery.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/datatables/1.10.7/js/jquery.dataTables.min.js"></script>
+        <script src="/scripts/main.js"></script>
+
         <link rel="icon" href="/evercam-e.png" title="Favicon">
     </head>
     <body>
@@ -17,12 +24,6 @@
             <h1 class="project-name">Evercam.GitHub.io</h1>
             <h2 class="project-tagline">Evercam on Github Pages</h2>
         </section>
-
-        <!-- Must load before content specific scripts -->
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.3.16/angular.js"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/datatables/1.10.7/js/jquery.js"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/datatables/1.10.7/js/jquery.dataTables.min.js"></script>
-        <script src="/scripts/main.js"></script>
 
         <section class="main-content container-fluid">
             {{ content }}
