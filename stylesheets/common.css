@@ -1,9 +1,10 @@
 /* Special */
 html {
-    font-size: 14px; /* Define rem */
+    font-size: 16px;
 }
 
 body {
+    font-size: 1rem;
     padding: 0;
     margin: 0;
     line-height: 1.5;
@@ -149,8 +150,60 @@ a:hover {
 }
 
 /* Issue styling */
-#issues {
-    font-size: 12px;
+#issues, #issues > * {
+    font-size: 14px;
+}
+
+#issues,
+#issues td,
+#issues tr,
+#issues th,
+#issues thead {
+    border: 0px;
+}
+
+#issues tbody th,
+#issues tbody td {
+    padding: 10px;
+}
+
+#issues_wrapper .paginate_button {
+    border: 0;
+    border-radius: 3px;
+}
+
+#issues_wrapper .paginate_button.current {
+    background-color: #159957;
+    background-image: none;
+    color: #fff !important;
+}
+
+#issues_wrapper .paginate_button:hover {
+    background-color: #159957;
+    background-image: none;
+    color: #fff;
+}
+
+#issues_wrapper .paginate_button.disabled {
+    background-color: transparent;
+}
+
+#issues_wrapper .dataTables_paginate {
+    text-align: center;
+    width: 100%;
+}
+
+#issues_wrapper #issues_filter {
+    width: 100%;
+}
+
+#issues_wrapper #issues_filter label {
+    width: 100%;
+}
+
+#issues_wrapper #issues_filter label input {
+    width: 100%;
+    margin: 0;
 }
 
 /* Sponsor styling */
@@ -223,17 +276,37 @@ a:hover {
     text-align: center;
 }
 
-.repository > div {
+.repository a {
+    text-decoration: none;
+    color: inherit;
+}
+
+.repository .repo-name {
+    color: #1e6bb8;
+    display: block;
+}
+
+.repository .repo-name:hover {
+    text-decoration: underline;
+}
+
+.repository div {
     box-shadow: 0 0 3px rgba(113, 113, 113, 0.49);
     margin: 1rem 0.5rem;
     padding: 1rem;
+    transition: 0.1s background-color ease-out;
+    border-radius: 3px;
+}
+
+.repository div:hover {
+    background-color: #f6f6f6;
 }
 
 .repository .repository-description {
-    height: 3.5rem;
+    height: 40px;
     overflow: hidden;
     margin: 0.5rem 0;
-    font-size: 12px;
+    font-size: 14px;
 }
 
 /* Orginall */

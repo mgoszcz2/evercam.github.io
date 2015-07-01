@@ -12,6 +12,14 @@ var global = null
 var scope = null
 var timeout = null
 
+// Simple form-control to datatables
+/* Default class modification */
+jQuery.extend(jQuery.fn.dataTable.ext.classes, {
+	sWrapper:      "dataTables_wrapper form-inline dt-bootstrap",
+	sFilterInput:  "form-control input-sm",
+	sLengthSelect: "form-control input-sm"
+})
+
 // Angular set-up
 var app = angular.module("evercamApp", []);
 app.controller("repoCtrl", function($scope, $timeout) {
@@ -43,7 +51,15 @@ function attemptUpdate(outsideDigest) {
         }
         console.log("Sucessful scope update")
         timeout(function() {
-            $("#issues").DataTable();
+            $("#issues").DataTable({
+                bLengthChange: false,
+                pageLength: 16,
+                info: false,
+                language: {
+                    search: '',
+                    searchPlaceholder: 'Search'
+                }
+            });
         })
     }
 }

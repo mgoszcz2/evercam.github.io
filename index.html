@@ -2,7 +2,7 @@
 layout: default
 title: Introduction Page
 ---
-<h3>Evercam Architecture Diagram - Logo Driven Development ;)</h3>
+<h3 class="hidden-xs">Evercam Architecture Diagram - Logo Driven Development ;)</h3>
 <img src="images/architecture.png" width="100%" class="hidden-xs">
 
 {% raw %}
@@ -10,19 +10,21 @@ title: Introduction Page
     <h2>Repositories <small>This is where the magic happens</small></h2>
     <div ng-repeat="cat in categories">
         <h3 class="col-xs-12 repository-category">{{cat.name}}</h3>
-        <ul class="cleafix repository-list list-inline">
+        <ul class="clearfix repository-list list-inline">
             <li class="repository col-xs-12 col-sm-6 col-md-4" ng-repeat="repo in cat.repos">
-                <div>
-                    <a ng-href="{{repo.url}}">{{repo.name}}</a><br/>
-                    <p class="repository-description">{{repo.description}}</p>
-                    {{repo.forks}} <i class="fa fa-code-fork"></i>&nbsp;&nbsp;&nbsp;
-                    {{repo.watchers}} <i class="fa fa-eye"></i>
-                </div>
+                <a ng-href="{{repo.url}}">
+                    <div>
+                        <span class="repo-name">{{repo.name}}</span>
+                        <p class="repository-description">{{repo.description}}</p>
+                        {{repo.forks}} <i class="fa fa-code-fork"></i>&nbsp;&nbsp;&nbsp;
+                        {{repo.watchers}} <i class="fa fa-eye"></i>
+                    </div>
+                </a>
             </li>
         </ul>
     </div>
 
-    <h2 class="col-xs-12">Contributors <small>Shout out to the many heros that are helping along the way.</small></h2>
+    <h2 class="col-xs-12">Contributors <small>Shout out to the many heroes that are helping along the way.</small></h2>
     <ul class="contributors-list list-inline">
         <div ng-repeat="cont in contributors" class="contributor-wrap col-xs-6 col-sm-4 col-md-3">
             <li class="contributor">
@@ -40,7 +42,7 @@ title: Introduction Page
     </ul>
 
     <h2 class="col-xs-12">Issues <small>Jump in, the water's warm :)</small></h2>
-    <table id="issues" class="table table-hover">
+    <table id="issues" class="table table-hover table-striped">
         <thead>
             <tr>
                 <th>Id</th>
@@ -50,7 +52,7 @@ title: Introduction Page
         </thead>
         <tbody>
             <tr ng-repeat="issue in issues">
-                <td><a ng-href="{{issue.url}}">{{issue.number}}</a></td>
+                <td><a target="_blank" ng-href="{{issue.url}}">{{issue.number}}</a></td>
                 <td>{{issue.repository}}</td>
                 <td>{{issue.title}}</td>
             </tr>
@@ -146,8 +148,8 @@ title: Introduction Page
     </div>
 </div>
 <div class="row sponsors">
-    <img src="images/Telefonica-Europe-Logo.svg">
-    <img src="images/Intel-logo.svg"/>
+    <img src="images/telefonica.png" alt="Telefonica">
+    <img src="images/intel.png" alt="Intel">
 </div>
 
 <footer class="site-footer">
