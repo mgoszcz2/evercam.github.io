@@ -181,17 +181,13 @@ a:hover {
     border-radius: 3px;
 }
 
-
-#issues_wrapper .paginate_button.current {
-    background-color: #159957;
-    background-image: none;
-    color: #fff !important;
-}
-
+#issues_wrapper .paginate_button.current,
+#issues_wrapper .paginate_button:active,
 #issues_wrapper .paginate_button:hover {
     background-color: #159957;
     background-image: none;
-    color: #fff;
+    color: #fff !important;
+    box-shadow: none;
 }
 
 #issues_wrapper .paginate_button.disabled {
