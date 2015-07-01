@@ -19,6 +19,11 @@ body {
     box-sizing: border-box;
 }
 
+.grid-item {
+    display: inline-block;
+    float: none;
+}
+
 /* Headings & Fonts */
 .main-content h1,
 .main-content h2,

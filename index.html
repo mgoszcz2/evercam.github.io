@@ -9,8 +9,8 @@ title: Introduction Page
     <div ng-controller="repoCtrl">
         <div ng-repeat="cat in ::categories">
             <h3 class="col-xs-12 repository-category">{{cat.name}}</h3>
-            <ul class="clearfix repository-list list-inline">
-                <li class="repository col-xs-12 col-sm-6 col-md-4" ng-repeat="repo in cat.repos">
+            <ul class="clearfix repository-list list-inline text-center">
+                <li class="repository col-xs-12 col-sm-6 col-md-4 grid-item" ng-repeat="repo in cat.repos">
                     <a ng-href="{{repo.url}}">
                         <div>
                             <span class="repo-name">{{repo.name}}</span>
@@ -24,8 +24,8 @@ title: Introduction Page
         </div>
 
         <h2 class="col-xs-12">Contributors <small>Shout out to the many heroes that are helping along the way.</small></h2>
-        <ul class="contributors-list list-inline">
-            <div ng-repeat="cont in ::contributors" class="contributor-wrap col-xs-6 col-sm-4 col-md-3">
+        <ul class="contributors-list list-inline text-center">
+            <div ng-repeat="cont in ::contributors" class="contributor-wrap grid-item col-xs-6 col-sm-4 col-md-3">
                 <li class="contributor">
                     <img class="img-circle" ng-src="{{cont.avatar}}">
                     <a ng-href="{{cont.url}}">
