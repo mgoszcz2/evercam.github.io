@@ -12,7 +12,7 @@ body {
     padding: 0;
     margin: 0;
     line-height: 1.5;
-    color: #444;
+    color: #515254;
 }
 
 * {
@@ -26,11 +26,15 @@ body {
 .main-content h4,
 .main-content h5,
 .main-content h6 {
-    color: #159957;
     margin: 0.8rem 0 1rem;
     font-weight: normal;
     text-align: center;
     clear: both;
+}
+
+.main-content h1,
+.main-content h2 {
+    color: #DF5F56;
 }
 
 h1 > small,
@@ -71,28 +75,28 @@ h6 > small {
 
 @media screen and (min-width: 64em) {
     .main-content {
-        padding: 2rem 6rem;
+        padding: 0rem 6rem;
     }
 }
 
 @media screen and (min-width: 42em) and (max-width: 64em) {
     .main-content {
-        padding: 2rem 4rem;
+        padding: 0rem 4rem;
     }
 }
 
 @media screen and (max-width: 42em) {
     .main-content {
-        padding: 2rem 1rem;
+        padding: 0rem 1rem;
     }
 }
 
 .page-header {
-    margin: 0;
-    color: #fff;
+    margin: 0 0 3rem;
     text-align: center;
-    background-color: #159957;
-    background-image: linear-gradient(120deg, #155799, #159957);
+    border-bottom: 8px solid #DF5F56;
+    background-color: #F7F7F7;
+    box-shadow: 0 4px 10px rgba(177, 177, 177, 0.59);
 }
 
 .page-header h1 {
@@ -101,52 +105,33 @@ h6 > small {
 
 @media screen and (min-width: 64em) {
     .page-header {
-        padding: 5rem 6rem;
+        padding: 1rem 6rem;
     }
 }
 
 
 @media screen and (min-width: 42em) and (max-width: 64em) {
     .page-header {
-        padding: 3rem 4rem;
+        padding: 1rem 4rem;
     }
 }
 
 @media screen and (max-width: 42em) {
     .page-header {
-        padding: 2rem 1rem;
+        padding: 1rem 1rem;
     }
 }
 
 .project-name {
     margin-top: 0;
     margin-bottom: 0.1rem;
+    color: #777;
+    font-weight: 400;
+    font-size: 20px;
 }
 
-@media screen and (min-width: 64em) {
-    .project-name {
-        font-size: 3.25rem;
-    }
-}
-
-@media screen and (min-width: 42em) and (max-width: 64em) {
-    .project-name {
-        font-size: 2.25rem;
-    }
-}
-
-@media screen and (max-width: 42em) {
-    .project-name {
-        font-size: 1.75rem;
-    }
-}
-
-
-.project-tagline {
-    margin-bottom: 2rem;
-    font-weight: normal;
-    opacity: 0.7;
-    font-size: 1.5rem;
+img.project-logo {
+    height: 80px;
 }
 
 a {
@@ -160,7 +145,7 @@ a:hover {
 
 /* Issue styling */
 #issues, #issues > * {
-    font-size: 14px;
+    font-size: 14px
 }
 
 #issues,
@@ -184,7 +169,7 @@ a:hover {
 #issues_wrapper .paginate_button.current,
 #issues_wrapper .paginate_button:active,
 #issues_wrapper .paginate_button:hover {
-    background-color: #159957;
+    background-color: #DF5F56;
     background-image: none;
     color: #fff !important;
     box-shadow: none;
@@ -365,8 +350,8 @@ a:hover {
     }
 }
 
-.main-content img {
-    max-width: 100%;
+.main-content > img {
+    width: 100%;
 }
 
 .main-content p {

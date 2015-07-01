@@ -3,10 +3,10 @@ layout: default
 title: Introduction Page
 ---
 {% raw %}
+<img src="images/arhitecture.svg" alt="Arhitecture" class="">
 <p ng-show="::false" class="loading-message">Loading...</p>
 <div class="ng-cloak">
     <div ng-controller="repoCtrl">
-        <h2>Repositories <small>This is where the magic happens</small></h2>
         <div ng-repeat="cat in ::categories">
             <h3 class="col-xs-12 repository-category">{{cat.name}}</h3>
             <ul class="clearfix repository-list list-inline">
