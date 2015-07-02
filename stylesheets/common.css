@@ -22,6 +22,16 @@ body {
 .grid-item {
     display: inline-block;
     float: none;
+    vertical-align: top;
+}
+
+/* Footer */
+footer {
+    padding: 1rem 0;
+    margin-top: 1rem;
+    border-top: solid 1px #eff0f1;
+    color: #819198;
+    text-align: center;
 }
 
 /* Headings & Fonts */
@@ -31,10 +41,11 @@ body {
 .main-content h4,
 .main-content h5,
 .main-content h6 {
-    margin: 0.8rem 0 1rem;
-    font-weight: normal;
+    margin: 2rem 0 0.6rem;
+    font-weight: bold;
     text-align: center;
     clear: both;
+    line-height: 1.5;
 }
 
 .main-content h1,
@@ -486,19 +497,4 @@ a:hover {
     margin: 1rem 0;
     background-color: #eff0f1;
     border: 0;
-}
-
-.site-footer {
-    padding-top: 2rem;
-    margin-top: 2rem;
-    border-top: solid 1px #eff0f1;
-}
-
-.site-footer-owner {
-    display: block;
-    font-weight: bold;
-}
-
-.site-footer-credits {
-    color: #819198;
 }
