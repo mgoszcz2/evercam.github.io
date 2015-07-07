@@ -44,7 +44,7 @@ title: Introduction Page
         <img src="images/architecture.svg" alt="Arhitecture" class="">
         <div ng-repeat="cat in ::categories">
             <h3 class="col-xs-12 repository-category">{{cat.name}}</h3>
-            <ul class="clearfix repository-list list-inline text-center" ng-if="!cat.short">
+            <ul class="clearfix repository-list list-inline" ng-if="!cat.short">
                 <li class="repository col-xs-12 col-sm-6 col-md-4 grid-item" ng-repeat="repo in ::cat.repos">
                     <a target="_blank" ng-href="{{repo.url}}">
                         <div>
@@ -67,7 +67,7 @@ title: Introduction Page
 
     <section>
         <h2 class="col-xs-12">Contributors<small>Shout out to the many heroes that are helping along the way.</small></h2>
-        <ul class="contributors-list list-inline text-center">
+        <ul class="contributors-list list-inline">
             <div ng-repeat="cont in ::contributors" class="contributor-wrap grid-item col-xs-6 col-sm-4 col-md-3">
                 <li class="contributor">
                     <img class="img-circle" ng-src="{{cont.avatar}}">
@@ -106,27 +106,27 @@ title: Introduction Page
 </div>
 {% endraw %}
 
-<section class="text-center row">
+<section class="row">
     <h2>Get involved<small>The Open Source Camera Management Platform</small></h2>
 
-    <h3>Add public cameras</h3>
+    <h4>Add public cameras</h4>
     <p>Either create an Evercam account and use our API.</p>
 
-    <h3>Add or improve the vendor/model information</h3>
+    <h4>Add or improve the vendor/model information</h4>
     <p>
         Through the API, or <a href="http://www.evercam.io/contact">get in touch</a>.
         If you’re a camera manufacturer, we’d love to talk.
     </p>
 
-    <h3>Create your own Evercam</h3>
+    <h4>Create your own Evercam</h4>
     <p>
         Fork our repo and give it a shot. Start here: <a target="_blank" href="https://github.com/evercam/evercam-devops">evercam-devops</a>
     </p>
 
-    <h3>There’s an app or an integration you’d like to see?</h3>
+    <h4>There’s an app or an integration you’d like to see?</h4>
     <p><a href="http://www.evercam.io/contact">Get in touch</a>, or try it yourself.</p>
 
-    <h3>Bugs etc.</h3>
+    <h4>Bugs etc.</h4>
     <p>
         Please send an email or create an issue
         Please send security related issues to marco@evercam.io

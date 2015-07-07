@@ -43,7 +43,7 @@ footer {
 .main-content h6 {
     margin: 2rem 0 0.6rem;
     font-weight: bold;
-    text-align: center;
+    /*text-align: center;*/
     clear: both;
     line-height: 1.5;
 }
@@ -215,7 +215,7 @@ a:hover {
 
 /* Sponsor styling */
 .sponsors {
-    text-align: center;
+    /*text-align: center;*/
 }
 
 .sponsors img {
@@ -280,7 +280,7 @@ a:hover {
 
 /* Repository styling */
 .repository {
-    text-align: center;
+    /*text-align: center;*/
 }
 
 .repository a {
