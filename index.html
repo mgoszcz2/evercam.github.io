@@ -3,17 +3,52 @@ layout: default
 title: Introduction Page
 ---
 {% raw %}
-<img src="images/architecture.svg" alt="Arhitecture" class="">
+<section>
+    <h2>Open Source</h2>
+    <p>
+        The entire Evercam codebase is open source under either
+        Apache 2.0 or AGPL license (see below for details).
+    </p>
+    <p>
+        We made the decision to do this in April 2015 as we believe it is
+        the best way to achieve our goal to write the best camera management
+        software in the world. You can read about our decision here.
+    </p>
+
+    <h3>Warning For Developers</h3>
+    <p>
+        We wanted to go ahead and open up the codebase as soon as we possibly could. This means that it is currently far from what we would consider well prepared for external consumption. In theory it is possible to fork our server and get it up and running, in practice we’d ask you to hold off for a little longer while we get it nicely containerised and documented. The clients ( dashboard, iOS and Android ) are an easier starting point or you may be able to make pull requests directly to the server repos (evercam-media , evercam-api) with functional requests. In general though, you’re probably best sending us an email (marco@evercam.io) with some info about what you’d like to achieve.
+    </p>
+
+    <p>
+        Things we need to work on a bit more before we’d be recommending anyone to dive in:
+    </p>
+
+    <ul>
+        <li>Further separation of the admin and OAuth areas.</li>
+        <li>Containerisation for easier deployment</li>
+        <li>Better documentation, probably some Ansible playbooks.</li>
+        <li>Transition of our roadmap from internal trello boards to Github milestones &amp; issues.</li>
+    </ul>
+
+    <p>
+        So, warning over and done with, if you still feel brave, here’s the starting point:
+        <a href="https://github.com/evercam/evercam-devops">github.com/evercam/dev-ops</a>
+    </p>
+</section>
+
 <p ng-show="::false" class="loading-message">Loading...</p>
-<div class="ng-cloak">
-    <div ng-controller="repoCtrl">
+<div ng-controller="repoCtrl">
+    <section class="ng-cloak">
+        <h2 class="col-xs-12">Repositories</h2>
+        <img src="images/architecture.svg" alt="Arhitecture" class="">
         <div ng-repeat="cat in ::categories">
             <h3 class="col-xs-12 repository-category">{{cat.name}}</h3>
-            <ul class="clearfix repository-list list-inline text-center">
-                <li class="repository col-xs-12 col-sm-6 col-md-4 grid-item" ng-repeat="repo in cat.repos">
+            <ul class="clearfix repository-list list-inline text-center" ng-if="!cat.short">
+                <li class="repository col-xs-12 col-sm-6 col-md-4 grid-item" ng-repeat="repo in ::cat.repos">
                     <a target="_blank" ng-href="{{repo.url}}">
                         <div>
-                            <span class="repo-name">{{repo.name}}</span>
+                            <span class="repo-name">{{repo.alias}}</span>
                             <p class="repository-description">{{repo.description}}</p>
                             {{repo.forks}} <i class="fa fa-code-fork"></i>
                             &nbsp;&nbsp;
@@ -22,9 +57,16 @@ title: Introduction Page
                     </a>
                 </li>
             </ul>
+            <ul ng-if="cat.short" class="list-inline">
+                <li ng-repeat="repo in ::cat.repos">
+                    <a ng-href="{{repo.url}}">{{repo.alias}}</a>
+                </li>
+            </ul>
         </div>
+    </section>
 
-        <h2 class="col-xs-12">Contributors <small>Shout out to the many heroes that are helping along the way.</small></h2>
+    <section>
+        <h2 class="col-xs-12">Contributors<small>Shout out to the many heroes that are helping along the way.</small></h2>
         <ul class="contributors-list list-inline text-center">
             <div ng-repeat="cont in ::contributors" class="contributor-wrap grid-item col-xs-6 col-sm-4 col-md-3">
                 <li class="contributor">
@@ -40,8 +82,10 @@ title: Introduction Page
                 <span ng-if="!cont.name">{{cont.login}}</span>
             </div>
         </ul>
+    </section>
 
-        <h2 class="col-xs-12">Issues <small>Jump in, the water's warm :)</small></h2>
+    <section>
+        <h2 class="col-xs-12">Issues<small>Jump in, the water's warm :)</small></h2>
         <table id="issues" class="table table-hover table-striped">
             <thead>
                 <tr>
@@ -58,43 +102,50 @@ title: Introduction Page
                 </tr>
             </tbody>
         </table>
-    </div>
+    </section>
 </div>
 {% endraw %}
 
-<div class="text-center row">
-    <h2>Get involved with Evercam <small>The Open Source Camera Management Platform</small></h2>
+<section class="text-center row">
+    <h2>Get involved<small>The Open Source Camera Management Platform</small></h2>
 
-    <h4>Add public cameras</h4>
-    <p>
-        Either create an Evercam account and use our API.<br class="hidden-xs"/>
-        Or, if you’ve got a public data set and you’d like us to add it,
-        <a href="http://www.evercam.io/contact">get in touch</a>
-    </p>
+    <h3>Add public cameras</h3>
+    <p>Either create an Evercam account and use our API.</p>
 
-    <h4>Add or improve the vendor / model information</h4>
+    <h3>Add or improve the vendor/model information</h3>
     <p>
         Through the API, or <a href="http://www.evercam.io/contact">get in touch</a>.
         If you’re a camera manufacturer, we’d love to talk.
     </p>
 
-    <h4>Create your own Evercam</h4>
+    <h3>Create your own Evercam</h3>
     <p>
         Fork our repo and give it a shot. Start here: <a target="_blank" href="https://github.com/evercam/evercam-devops">evercam-devops</a>
     </p>
 
-    <h4>There’s an app or an integration you’d like to see?</h4>
-    <p>
-        <A href="http://www.evercam.io/contact">Get in touch</a>, or try it yourself.
-    </p>
-</div>
+    <h3>There’s an app or an integration you’d like to see?</h3>
+    <p><a href="http://www.evercam.io/contact">Get in touch</a>, or try it yourself.</p>
 
-<div class="text-center row">
+    <h3>Bugs etc.</h3>
+    <p>
+        Please send an email or create an issue
+        Please send security related issues to marco@evercam.io
+    </p>
+</section>
+
+<section>
+    <h2>Licences</h2>
+    <ul>
+        <li><b>Server &amp; Clients:</b> <a href="https://tldrlegal.com/license/gnu-affero-general-public-license-v3-(agpl-3.0)">GNU AGPL v3.0</a></li>
+        <li><b>Everything else:</b> <a href="https://tldrlegal.com/license/apache-license-2.0-(apache-2.0)">Apache 2.0</a></li>
+        <li><b>Documentation:</b> <a href="http://creativecommons.org/licenses/by-nc-sa/3.0/">Creative Commons</a></li>
+    </ul>
+</section>
+
+<section class="row sponsors">
     <h2>Sponsors</h2>
-</div>
-<div class="row sponsors">
     <img src="images/telefonica.png" alt="Telefonica">
     <img src="images/intel.png" alt="Intel">
-</div>
+</section>
 
 <script src="evercam.json"></script>

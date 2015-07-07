@@ -1,10 +1,29 @@
 // Config
 var noCatgeory = "Misc"
 var showMisc = false;
+var onlyBlessedIssues = true;
+var miscShort = true;
 var spec = [
-    {name: "Servers", repos: ["evercam-api", "evercam-media", "evercam-gateway", "camera-gateway-api"]},
-    {name: "Clients", repos: ["evercam-dashboard", "evercam-public-site", "evercam-play-ios", "evercam-play-android"]},
-    {name: "Wrappers", repos: ["evercam-node", "evercam-ruby", "evercam.js", "evercam-objc", "evercam-elixir", "evercam.net", "evercam.java", "evercam.py"]}
+    {
+        name: "Servers",
+        repos: ["evercam-api", "evercam-media", "evercam-gateway", "evercam-gateway-api"]
+    }, {
+        name: "Clients",
+        repos: ["evercam-dashboard", "evercam-public-site", "evercam-play-ios", "evercam-play-android"]
+    }, {
+        name: "Wrappers",
+        short: true,
+        repos: [
+            ["evercam-node", "Node.js"],
+            ["evercam-ruby", "Ruby"],
+            ["evercam.js", "JavaScript"],
+            ["evercam-objc", "Objective-C"],
+            ["evercam-elixir", "Elixir"],
+            ["evercam.net", ".NET"],
+            ["evercam.java", "Java"],
+            ["evercam.py", "Python"]
+        ]
+    }
 ]
 
 // Horrible race conditions hack
@@ -28,6 +47,12 @@ app.controller("repoCtrl", function($scope, $timeout) {
     attemptUpdate(false)
 })
 
+// Haskell FTW
+function traceShow(obj) {
+    console.log(obj)
+    return obj
+}
+
 // JSONP callback from S3
 function readData(data) {
     var obj = {}
@@ -41,7 +66,6 @@ function readData(data) {
 // Called at end of angular scope setup and JSONP load
 // Only triggers if both have been loaded
 function attemptUpdate(outsideDigest) {
-    console.log(outsideDigest, scope, global);
     if (scope && global) {
         for (var key in global) {
             scope[key] = global[key]
@@ -49,7 +73,7 @@ function attemptUpdate(outsideDigest) {
         if (outsideDigest) {
             scope.$digest()
         }
-        console.log("Sucessful scope update")
+        traceShow("Sucessful scope update")
         timeout(function() {
             $("#issues").DataTable({
                 bLengthChange: false,
@@ -64,10 +88,24 @@ function attemptUpdate(outsideDigest) {
     }
 }
 
+// Get name ignoring alias for spec check
+function getName(name) {
+    if (typeof name == "string") return name
+    return name[0];
+}
+
+function getAlias(name) {
+    if (typeof name == "string") return name
+    return name[1];
+}
+
 // Organise repositories by category
 function handleRepositories(repos) {
-    var categories = {} // spec with category as key
-    var processed = {} // Result
+    // Used for putting `repos` into `processed`
+    var categories = {}
+    // Actual repo objects with catgeory followed
+    // by repo name (non-alised) as key
+    var processed = {}
 
     for (var i = 0; i < spec.length; i++) {
         processed[spec[i].name] = {}
@@ -78,12 +116,15 @@ function handleRepositories(repos) {
     // Sort repos by categories
     for (var i = 0; i < repos.length; i++) {
         var name = repos[i].name
-        processed[getCategory(categories, name)][name] = repos[i]
+        var cat = getCategory(categories, name)
+        repos[i].alias = cat.alias
+        processed[cat.category][name] = repos[i]
     }
 
-    return reorderToTop(categories, processed)
+    return reorderToTop(processed)
 }
 
+// Only get repos that appear in the spec
 function getBlessedRepos() {
     var blessed = [];
 
@@ -93,41 +134,58 @@ function getBlessedRepos() {
     return blessed;
 }
 
+// Maybe filter blessed repos
 function handleIssues(issues) {
-    var blessed = getBlessedRepos()
+    if (!onlyBlessedIssues) return issues
 
+    var blessed = getBlessedRepos()
     return issues.filter(function(issue) {
         return blessed.indexOf(issue.repository) > -1
     })
 }
 
-function getCategory(categories, repo) {
+// Get category and alias of a repo
+function getCategory(categories, name) {
     for (cat in categories) {
-        if (categories[cat].indexOf(repo) > -1) return cat
+        var repos = categories[cat]
+        for (var i = 0; i < repos.length; i++) {
+            if (getName(repos[i]) == name) {
+                return {alias: getAlias(repos[i]), category: cat}
+            }
+        }
     }
-    return noCatgeory
+    return {alias: name, category: noCatgeory}
 }
 
 // Reorder repos to match order in spec
-function reorderToTop(categories, data) {
-    var ordered = [], miscrepos = []
+function reorderToTop(data) {
+    // Result
+    var ordered = []
+    // Repositories that don't belong anywhere
+    var miscRepos = []
 
     // Sort categorised data by spec ordered
-    for (var cat in categories) {
-        var catrepos = []
-        for (var i = 0; i < categories[cat].length; i++) {
-            var repo = categories[cat][i]
-            if (repo in data[cat]) catrepos.push(data[cat][repo])
+    for (var i = 0; i < spec.length; i++) {
+        var cat = spec[i].name
+        var catRepos = []
+        for (var j = 0; j < spec[i].repos.length; j++) {
+            var repo = getName(spec[i].repos[j])
+            if (repo in data[cat]) {
+                catRepos.push(data[cat][repo])
+            } else {
+                console.warn("'" + cat + "' contains non-existant repository " + repo)
+            }
         }
-        ordered.push({name: cat, repos: catrepos})
+        ordered.push({name: cat, repos: catRepos, short: spec[i].short || false})
     }
 
-    // Eveyrthing goes into misc
+    // Everything goes into misc
     if (showMisc) {
         for (var repo in data[noCatgeory]) {
-            miscrepos.push(data[noCatgeory][repo])
+            miscRepos.push(data[noCatgeory][repo])
         }
-        ordered.push({name: noCatgeory, repos: miscrepos})
+        ordered.push({name: noCatgeory, repos: miscRepos, short: miscShort})
     }
+    console.log("Data", ordered)
     return ordered
 }
